@@ -8,15 +8,6 @@ Mariana Oliveira Santos RA: 1252325935
 
 Um jogo inspirado em Wordle, onde você precisa adivinhar o artista.
 
-## 
-
-To deploy this project run
-
-```bash
-  npm run deploy
-```
-
-
 ## Como iniciar o app localmente
 
 1. Clonar o projeto
