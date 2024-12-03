@@ -331,7 +331,7 @@ export default function ArtistGuessingGame() {
 									className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
 									onClick={() => {
 										setShowCongrats(false);
-										getData();
+										resetGame();
 									}}
 								>
 									<motion.div
