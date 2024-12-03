@@ -13,6 +13,7 @@ export default function About() {
 						height={90}
 						objectFit="cover"
 						width={100}
+						alt="avatar"
 						className="rounded"
 					/>
 					Mariana Oliveira Santos
