@@ -11,14 +11,17 @@ export interface Login {
 
 export async function loginUser(user: Login): Promise<Response | string> {
 	try {
-		const response = await fetch("http://localhost:8080/api/login", {
-			// Substitua '/register' pelo endpoint correto
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
+		const response = await fetch(
+			"https://single-back-deploy-production.up.railway.app/api/login",
+			{
+				// Substitua '/register' pelo endpoint correto
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(user),
 			},
-			body: JSON.stringify(user),
-		});
+		);
 
 		if (!response.ok) {
 			const errorData = await response.text();
@@ -34,14 +37,17 @@ export async function loginUser(user: Login): Promise<Response | string> {
 }
 export async function registerUser(user: User): Promise<Response | string> {
 	try {
-		const response = await fetch("http://localhost:8080/api/register", {
-			// Substitua '/register' pelo endpoint correto
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
+		const response = await fetch(
+			"https://single-back-deploy-production.up.railway.app/api/register",
+			{
+				// Substitua '/register' pelo endpoint correto
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(user),
 			},
-			body: JSON.stringify(user),
-		});
+		);
 
 		if (!response.ok) {
 			const errorData = await response.text();
