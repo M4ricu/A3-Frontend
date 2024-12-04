@@ -79,7 +79,7 @@ export default function ArtistGuessingGame() {
 		field: keyof Artist,
 		value: Genre[] | string | number | boolean,
 	): string => {
-		if (!targetArtist || targetArtist[field] === null) return "";
+		if (!targetArtist || targetArtist[field] === null) return "bg-red-500";
 
 		if (typeof targetArtist[field] === "string" && typeof value === "string") {
 			if (targetArtist[field].toLowerCase() === value.toLowerCase())

@@ -16,12 +16,9 @@ export interface Genre {
 
 export const fetchArtists = async () => {
 	try {
-		const response = await fetch(
-			"https://single-48zf.onrender.com/api/artists",
-			{
-				method: "GET",
-			},
-		);
+		const response = await fetch("http://localhost:8080/api/artists", {
+			method: "GET",
+		});
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
