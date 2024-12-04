@@ -12,49 +12,47 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { type User, registerUser } from "@/utils/userData";
+import { type Login, loginUser } from "@/utils/userData";
 import { ThemeProvider } from "next-themes";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+
 export default function LoginPage() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [cpf, setCpf] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
-	const [user, setUser] = useState<User>({
-		username: "",
-		password: "",
-		cpf: "",
-	});
+	const [user, setUser] = useState<Login>({ username: "", password: "" });
 	const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		setIsLoading(true);
 		setError("");
 
 		try {
-			await registerUser(user).then((data) => {
+			await loginUser(user).then((data) => {
 				if (typeof data === "string") {
-					setError(`Erro ao registrar usuário: ${data}`);
+					setError(`Erro ao realizar login: ${data}`);
 				} else {
-					window.location.href = "/login";
+					localStorage.setItem("loggedIn", user.username);
+					window.location.href = "/";
 					setUsername("");
 					setPassword("");
 				}
 			});
 		} catch (err) {
+			setError("Usuário ou senha incorretos.");
 			console.error("Login error:", err);
 		} finally {
 			setIsLoading(false);
 		}
 	};
 	useEffect(() => {
-		const newUser: User = {
-			cpf: cpf,
+		const login: Login = {
 			username: username,
 			password: password,
 		};
-		setUser(newUser);
-	}, [username, password, cpf]);
+		setUser(login);
+	}, [username, password]);
 	return (
 		<ThemeProvider
 			attribute="class"
@@ -66,27 +64,13 @@ export default function LoginPage() {
 				<Navbar />
 				<Card className="w-full max-w-md">
 					<CardHeader>
-						<CardTitle className="text-2xl font-bold">Registro</CardTitle>
+						<CardTitle className="text-2xl font-bold">Login</CardTitle>
 						<CardDescription>
-							Digite seu CPF, usuário e senha para registrar-se.
+							Digite seu usuário e senha para acessar sua conta.
 						</CardDescription>
 					</CardHeader>
 					<form onSubmit={handleSubmit}>
 						<CardContent className="space-y-4">
-							<div className="space-y-2">
-								<Label htmlFor="cpf">CPF</Label>
-								<Input
-									id="CPF"
-									type="text"
-									placeholder="Digite seu CPF"
-									value={cpf}
-									onChange={(e) => setCpf(e.target.value)}
-									pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-									title="Digite um CPF válido"
-									required
-									disabled={isLoading}
-								/>
-							</div>
 							<div className="space-y-2">
 								<Label htmlFor="username">Usuário</Label>
 								<Input
@@ -111,6 +95,9 @@ export default function LoginPage() {
 									disabled={isLoading}
 								/>
 							</div>
+							<Link className="hover:text-accent text-sm" href={"/register"}>
+								Não tem uma conta? Clique aqui!
+							</Link>
 							{error && <p className="text-sm text-red-500">{error}</p>}
 						</CardContent>
 						<CardFooter>
@@ -119,7 +106,7 @@ export default function LoginPage() {
 								className="w-full font-bold"
 								disabled={isLoading}
 							>
-								{isLoading ? "Cadastrando..." : "Registrar-se"}
+								{isLoading ? "Entrando..." : "Entrar"}
 							</Button>
 						</CardFooter>
 					</form>

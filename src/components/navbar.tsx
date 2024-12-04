@@ -5,13 +5,23 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Music } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AvatarToggle } from "./avatar-toggle";
 
 export function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [username, setUsername] = useState("");
+
+	useEffect(() => {
+		if (localStorage.getItem("loggedIn") !== null) {
+			setUsername(localStorage.getItem("loggedIn") || "");
+			setIsLoggedIn(true);
+		}
+	}, []);
 
 	return (
-		<nav className="fixed top-0 left-0 right-0 bg-background z-10 shadow-md">
+		<nav className="fixed top-0 left-0 right-0 bg-background z-10 shadow-md dark:shadow-stone-900">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between h-16">
 					<Link href="/" className="flex items-center">
@@ -34,6 +44,15 @@ export function Navbar() {
 							>
 								Opções
 							</Link>
+							{!isLoggedIn && (
+								<Link
+									href="/login"
+									className="text-foreground hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-md text-sm font-medium"
+								>
+									Login
+								</Link>
+							)}
+							{isLoggedIn && <AvatarToggle>{username.charAt(0)}</AvatarToggle>}
 						</div>
 					</div>
 					<div className="md:hidden">

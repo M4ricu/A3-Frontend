@@ -18,7 +18,7 @@ export default function About() {
 					/>
 					Mariana Oliveira Santos
 				</h1>
-				<section className="bg-card mb-12 rounded-lg p-6 shadow-lg">
+				<section className="bg-card mb-12 rounded-lg p-6 shadow-lg dark:shadow-stone-900">
 					<h2 className="text-3xl font-semibold mb-4 text-card-foreground">
 						Contato
 					</h2>
@@ -31,7 +31,7 @@ export default function About() {
 						</p>
 					</ul>
 				</section>
-				<section className="bg-card mb-12 rounded-lg p-6 shadow-lg">
+				<section className="bg-card mb-12 rounded-lg p-6 shadow-lg dark:shadow-stone-900">
 					<h2 className="text-3xl font-semibold mb-4 text-card-foreground">
 						Habilidades
 					</h2>

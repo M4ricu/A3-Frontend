@@ -116,15 +116,25 @@ export default function ArtistGuessingGame() {
 	): "earlier" | "later" | "correct" {
 		if (!targetArtist) return "correct";
 		const targetDecade = targetArtist.decade;
-		if (targetDecade === guessDecade) return "correct";
-		return targetDecade > guessDecade ? "later" : "earlier";
+		if (targetDecade === guessDecade) {
+			return "correct";
+		}
+		if (targetDecade > guessDecade) {
+			return "later";
+		}
+		return "earlier";
 	}
 
 	function getAgeComparison(guessAge: number): "earlier" | "later" | "correct" {
 		if (!targetArtist) return "correct";
 		const targetAge = targetArtist.age;
-		if (targetAge === guessAge) return "correct";
-		return targetAge > guessAge ? "later" : "earlier";
+		if (targetAge === guessAge) {
+			return "correct";
+		}
+		if (targetAge > guessAge) {
+			return "later";
+		}
+		return "earlier";
 	}
 	function getArtistInfo(name: string): Artist | undefined {
 		return artists.find(
@@ -133,7 +143,16 @@ export default function ArtistGuessingGame() {
 	}
 	return (
 		<>
-			{!loading && <AnimatedMusicIcon />}
+			{!loading && (
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<AnimatedMusicIcon />
+				</ThemeProvider>
+			)}
 
 			{loading && (
 				<ThemeProvider
@@ -241,7 +260,7 @@ export default function ArtistGuessingGame() {
 									).map((field) => (
 										<div
 											key={field}
-											className={`p-3 rounded-lg shadow-md font-semibold items-center flex justify-center text-center ${getResultColor(field, guess[field])}`}
+											className={`p-3 rounded-lg shadow-md font-semibold items-center flex justify-center dark:shadow-stone-900 text-center ${getResultColor(field, guess[field])}`}
 										>
 											{field === "genres" && (
 												<span>
@@ -269,7 +288,7 @@ export default function ArtistGuessingGame() {
 											{field === "age" &&
 												getAgeComparison(guess[field]) !== "correct" && (
 													<span className="text-white ml-2">
-														{getYearComparison(guess[field]) === "later" ? (
+														{getAgeComparison(guess[field]) === "later" ? (
 															<ChevronUp className="w-5 h-5" />
 														) : (
 															<ChevronDown className="w-5 h-5" />
@@ -280,7 +299,7 @@ export default function ArtistGuessingGame() {
 											{field === "decade" &&
 												getYearComparison(guess[field]) !== "correct" && (
 													<span className="text-white ml-2">
-														{getYearComparison(guess[field]) === "later" ? (
+														{getYearComparison(guess[field]) !== "earlier" ? (
 															<ChevronUp className="w-5 h-5" />
 														) : (
 															<ChevronDown className="w-5 h-5" />
@@ -339,7 +358,7 @@ export default function ArtistGuessingGame() {
 										animate={{ y: 0, opacity: 1, pointerEvents: "all" }}
 										exit={{ y: 50, opacity: 0, pointerEvents: "none" }}
 										transition={{ type: "spring", stiffness: 300, damping: 30 }}
-										className="bg-background p-8 rounded-lg shadow-xl text-center"
+										className="bg-background p-8 rounded-lg shadow-xl dark:shadow-stone-900 text-center"
 										onClick={(e) => e.stopPropagation()}
 									>
 										<Alert>
