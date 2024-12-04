@@ -52,7 +52,9 @@ export function Navbar() {
 									Login
 								</Link>
 							)}
-							{isLoggedIn && <AvatarToggle>{username.charAt(0)}</AvatarToggle>}
+							{isLoggedIn && (
+								<AvatarToggle>{username.charAt(0).toUpperCase()}</AvatarToggle>
+							)}
 						</div>
 					</div>
 					<div className="md:hidden">
@@ -95,6 +97,20 @@ export function Navbar() {
 													>
 														Opções
 													</Link>
+													{!isLoggedIn && (
+														<Link
+															href="/login"
+															className="text-foreground hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-md text-sm font-medium"
+															onClick={() => setIsOpen(false)}
+														>
+															Login
+														</Link>
+													)}
+													{isLoggedIn && (
+														<AvatarToggle>
+															{username.charAt(0).toUpperCase()}
+														</AvatarToggle>
+													)}
 												</motion.div>
 											</>
 										)}

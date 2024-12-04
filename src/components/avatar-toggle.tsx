@@ -11,7 +11,7 @@ export function AvatarToggle({ ...props }) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<div className="text-background font-black hover:bg-muted-foreground cursor-pointer bg-foreground hover:text-accent-background flex items-center justify-center w-16 h-12 rounded-lg text-sm">
+				<div className="text-background font-black hover:bg-muted-foreground cursor-pointer bg-foreground hover:text-accent-background flex items-center justify-center w-16 h-12 rounded-lg text-xl">
 					{props.children}
 				</div>
 			</DropdownMenuTrigger>
